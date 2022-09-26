@@ -1,5 +1,5 @@
 # get_practicum_env
-Yandex practicum environment install and start jupyter scripts
+Yandex practicum environment install and run jupyter scripts
 
 script mount /opt/notebooks as /opt/notebooks in container.
 this is the jupyter root folder.
