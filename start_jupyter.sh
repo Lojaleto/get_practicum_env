@@ -25,16 +25,16 @@ while true; do
     fi
 done
 
-nohup docker exec $miniconda3 conda run -n practicum --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > jupyter.log &
+nohup docker exec $miniconda3 conda run -n practicum --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &
 
 sleep 5
 while true; do
-    lsize=`wc -c /root/jupyter.log | awk '{ print $1 }'`
+    lsize=`wc -c ./jupyter.log | awk '{ print $1 }'`
     if [ $lsize > 1000 ]; then
-        cat /root/jupyter.log
+        cat ./jupyter.log
         echo 'other ip:'
         ip route get 8.8.8.8 |awk '{ print $7 }'
-        echo '' > /root/jupyter.log
+        echo '' > ./jupyter.log
         break;
     else sleep 3; echo "jupyter is not running"
     fi
@@ -44,9 +44,8 @@ while true; do
     echo $jpid
     read -p "Do you wish to S top miniconda3 or R estart jupyter?  " yn
     case $yn in
-#        [Ss]* ) docker stop $miniconda3; docker system prune -a -f; break;;
         [Ss]* ) docker stop $miniconda3; break;;
-        [Rr]* ) pkill -f jupyter; nohup docker exec $miniconda3 conda run -n praktikum_new --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > jupyter.log &;;
+        [Rr]* ) pkill -f jupyter; nohup docker exec $miniconda3 conda run -n praktikum_new --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &;;
         * ) echo "Please answer S to close or R to restart";;
     esac
 done
