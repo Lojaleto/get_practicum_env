@@ -30,7 +30,7 @@ nohup docker exec $miniconda3 conda run -n practicum --no-capture-output jupyter
 sleep 5
 while true; do
     lsize=`wc -c ./jupyter.log | awk '{ print $1 }'`
-    if [ $lsize > 1000 ]; then
+    if [[ $lsize > 1000 ]]; then
         cat ./jupyter.log
         echo 'other ip:'
         ip route get 8.8.8.8 |awk '{ print $7 }'
