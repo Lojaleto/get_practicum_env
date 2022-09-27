@@ -22,7 +22,6 @@ docker exec practicum wget "https://code.s3.yandex.net/data-analyst/ds_practicum
 docker exec practicum /opt/conda/bin/conda env create -f ./ds_practicum_env.yml
 docker exec practicum /opt/conda/bin/conda activate prakticum
 docker exec practicum /opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks
-docker exec practicum /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root
 
 docker stop practicum
 
