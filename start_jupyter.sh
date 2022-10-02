@@ -1,5 +1,6 @@
 #!/bin/bash
 
+env="practicum"
 
 service docker stop
 
@@ -25,7 +26,7 @@ while true; do
     fi
 done
 
-nohup docker exec $miniconda3 conda run -n practicum --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &
+nohup docker exec $miniconda3 conda run -n $env --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &
 
 sleep 5
 while true; do
@@ -45,7 +46,7 @@ while true; do
     read -p "Do you wish to S top miniconda3 or R estart jupyter?  " yn
     case $yn in
         [Ss]* ) docker stop $miniconda3; break;;
-        [Rr]* ) pkill -f jupyter; nohup docker exec $miniconda3 conda run -n praktikum_new --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &;;
+        [Rr]* ) pkill -f jupyter; nohup docker exec $miniconda3 conda run -n $env --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &;;
         * ) echo "Please answer S to close or R to restart";;
     esac
 done
