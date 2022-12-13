@@ -20,7 +20,7 @@ docker run -i -d -p 8888:8888 \
 
 docker exec practicum wget "https://code.s3.yandex.net/data-analyst/ds_practicum_env.yml"
 docker exec practicum /opt/conda/bin/conda env create -f ./ds_practicum_env.yml
-docker exec practicum /opt/conda/bin/conda activate prakticum
+docker exec practicum /opt/conda/bin/conda activate practicum
 docker exec practicum /opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks
 
 docker stop practicum
