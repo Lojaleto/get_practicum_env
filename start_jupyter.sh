@@ -2,17 +2,18 @@
 
 env="practicum"
 
-service docker stop
+#uncomment for WSL
+#service docker stop
 
-sleep 1
-while true; do
-    st=`service docker status | grep "is running"`
-    if [ -n "$st" ]; then
-        echo "docker is running"
-        break;
-    else service docker start; sleep 3; echo "docker is not running"
-    fi
-done
+#sleep 1
+#while true; do
+#    st=`service docker status | grep "is running"`
+#    if [ -n "$st" ]; then
+#        echo "docker is running"
+#        break;
+#    else service docker start; sleep 3; echo "docker is not running"
+#    fi
+#done
 
 docker start practicum
 
