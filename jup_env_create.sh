@@ -1,5 +1,7 @@
 #!/bin/bash
 
+env="practicum"
+
 #uncomment for WSL
 #service docker stop
 
@@ -13,17 +15,20 @@
 #    fi
 #done
 
+mkdir /opt/notebooks
+ln -s "$(pwd)"/start_jupyter.sh ~/sj.sh
+
 docker run -i -d -p 8888:8888 \
---hostname practicum \
+--hostname $env \
 --mount type=bind,source=/opt/notebooks,target=/opt/notebooks \
---name practicum continuumio/miniconda3 /bin/bash
+--name $env continuumio/miniconda3 /bin/bash
 
 
-docker exec practicum wget "https://code.s3.yandex.net/data-analyst/ds_practicum_env.yml"
-docker exec practicum /opt/conda/bin/conda env create -f ./ds_practicum_env.yml
-docker exec practicum /opt/conda/bin/conda activate practicum
-docker exec practicum /opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks
+docker exec $env wget "https://code.s3.yandex.net/data-analyst/ds_practicum_env.yml"
+docker exec $env /opt/conda/bin/conda env create -f ./ds_practicum_env.yml
+docker exec $env /opt/conda/bin/conda activate $env
+docker exec $env /opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks
 
-docker stop practicum
+docker stop $env
 
 exit;

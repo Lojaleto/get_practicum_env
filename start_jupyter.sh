@@ -15,11 +15,11 @@ env="practicum"
 #    fi
 #done
 
-docker start practicum
+docker start $env
 
 sleep 3
 while true; do
-    miniconda3=`docker ps | grep 'practicum' | awk '{ print $1 }'`
+    miniconda3="$(docker ps | grep $env | awk '{ print $1 }')"
     if [ -n "$miniconda3" ]; then
         echo "miniconda3 is running"
         break;
@@ -31,7 +31,7 @@ nohup docker exec $miniconda3 conda run -n $env --no-capture-output jupyter note
 
 sleep 5
 while true; do
-    lsize=`wc -c ./jupyter.log | awk '{ print $1 }'`
+    lsize="$(wc -c ./jupyter.log | awk '{ print $1 }')"
     if [[ $lsize > 1000 ]]; then
         cat ./jupyter.log
         echo 'other ip:'
