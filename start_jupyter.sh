@@ -8,7 +8,7 @@ nbDir="/root/0-notebooks"
 
 #sleep 1
 #while true; do
-#    st=`service docker status | grep "is running"`
+#    st=`service docker status | grep "running"`
 #    if [ -n "$st" ]; then
 #        echo "docker is running"
 #        break;
