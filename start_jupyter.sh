@@ -1,6 +1,7 @@
 #!/bin/bash
 
 env="practicum"
+nbDir="/root/0-notebooks"
 
 #uncomment for WSL
 #service docker stop
@@ -21,15 +22,15 @@ sleep 3
 while true; do
     miniconda3="$(docker ps | grep $env | awk '{ print $1 }')"
     if [ -n "$miniconda3" ]; then
-        echo "miniconda3 is running"
+        echo "miniconda3 container is running"
         break;
-    else sleep 3; echo "miniconda3 is not running"
+    else sleep 3; echo "miniconda3 container is not running"
     fi
 done
 
 while true; do
 
-    nohup docker exec $miniconda3 conda run -n $env --no-capture-output jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &
+    nohup docker exec $miniconda3 conda run -n $env --no-capture-output jupyter notebook --notebook-dir=$nbDir --ip='*' --port=8888 --no-browser --allow-root > ./jupyter.log &
 
     sleep 5
     while true; do
